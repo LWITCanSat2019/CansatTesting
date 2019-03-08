@@ -10,23 +10,38 @@ public partial class Form1 : Form
             // create instance of DataTable class
             DataTable dt = new DataTable();
 
-            // Adds values to column
-            dt.Columns.Add("ID");
-            dt.Columns.Add("Name");
+            // prevent screen flickering
+            DoubleBuffered = true;
 
-            // Adds values to rows
-            dt.Rows.Add("01", "Ryan");
-            dt.Rows.Add("02", "Blake");
+            // Telemetry Labels
+            dt.Columns.Add("TEAM ID");
+            dt.Columns.Add("MISSION TIME");
+            dt.Columns.Add("PACKET COUNT");
+            dt.Columns.Add("ALTITUDE");
+            dt.Columns.Add("PRESSURE");
+            dt.Columns.Add("TEMP");
+            dt.Columns.Add("VOLTAGE");
+            dt.Columns.Add("GPS TIME");
+            dt.Columns.Add("GPS LATITUDE");
+            dt.Columns.Add("GPS LONGITUDE");
+            dt.Columns.Add("GPS ALTITUDE");
+            dt.Columns.Add("GPS GPS SATS");
+            dt.Columns.Add("PITCH");
+            dt.Columns.Add("ROLL");
+            dt.Columns.Add("BLADE SPIN RATE");
+            dt.Columns.Add("SOFTWARE STATE");
+            dt.Columns.Add("BONUS DIRECTION");
+
 
             // DataGridView is used to display the data in a grid
             // DataGridView must know where the data is coming from, which is why use of the DataSource property is needed
             dataGridView1.DataSource = dt;
-            
-            // Pass in current table to be modified  
+
+            // pass in the current table to be modified
             AddTableData(dt);
         }
 
-        private void AddTableData(DataTable dt)
+        private async void AddTableData(DataTable dt)
         {
             // set start character as A
             char a = 'A';
@@ -35,6 +50,8 @@ public partial class Form1 : Form
             {
                 // Cast a + i as char to convert ascii value
                 dt.Rows.Add(i, ((char)(a + i)));
+                // Wait one second (1000 milliseconds) before continuing, use of await requires that the method is asyc
+                await Task.Delay(1000);
             }
         }
     }
